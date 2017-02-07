@@ -1,4 +1,4 @@
-# textbar
+# TextBar
 Scripts for [TextBar](http://www.richsomerfield.com/apps/).
 
 **textbar_uptime** Will display the computers uptime.
