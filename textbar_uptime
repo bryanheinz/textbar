@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+import subprocess
+
+cmd = ["uptime"]
+task = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+output, errors = task.communicate()
+output = output.split(',')[0]
+output = output.split(' ')
+output.pop(0)
+output.pop(0)
+output = filter(None, output)
+output = ' '.join(output).strip()
+print(output)

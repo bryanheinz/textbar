@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+import subprocess
+
+def get_console_user():
+    cmd = 'stat -f "%Su" /dev/console'.split(' ')
+    output = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    user = output.stdout.read().strip()
+    return(user.replace('"', ''))
+
+def fct():
+    user = get_console_user()
+    path = '/Users/{0}/.fctsslvpnhistory'.format(user)
+    file = open(path, 'r')
+    data = file.readlines()
+    file.close()
+    for line in data:
+        if 'current' in line:
+            current = line.strip()
+    connection = current.split('=')[1]
+    return(connection)
+
+cmd = ["ps", "aux"]
+raw_out = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+output = raw_out.stdout.readlines()
+
+for line in output:
+	if "pppd" in line:
+		vpn = line
+
+try:
+    if vpn:
+        print(fct())
+except NameError:
+    print('')
